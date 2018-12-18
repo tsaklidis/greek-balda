@@ -12,6 +12,6 @@ How to play:
     <li>Press enter.</li>
 </ol>
 
-![](screenshots/game.png)
-![](screenshots/move.png)
+![](screenshots/game.png)<br>
+![](screenshots/move.png)<br>
 ![](screenshots/move3.png)
