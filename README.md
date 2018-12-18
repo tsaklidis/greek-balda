@@ -12,4 +12,5 @@ How to play:
     <li>Press enter.</li>
 </ol>
 
-
+![](screenshots/game.png)
+![](screenshots/move.png)
