@@ -14,3 +14,4 @@ How to play:
 
 ![](screenshots/game.png)
 ![](screenshots/move.png)
+![](screenshots/move3.png)
