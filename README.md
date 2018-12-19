@@ -1,4 +1,5 @@
 <h4>A puzzle game. The purpose is to create words and win the computer.</h4>
+Searching algorithm has to be improved, long search crashes browsers <br> 
 Check the live version at:
 <br>
 https://tsaklidis.gr/balda/index.php
