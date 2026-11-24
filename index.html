@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greek Balda</title>
+<meta name="description" content="Παιχνίδι λέξεων: φτιάξε λέξεις στο ταμπλό και νίκησε τον υπολογιστή.">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="js/nouns.js"></script>
+<script defer src="js/balda.js"></script>
+</head>
+<body data-phase="loading">
+<header class="top">
+  <h1>Μπάλντα</h1>
+  <span class="level-badge" id="level-label"></span>
+  <nav class="actions">
+    <button type="button" id="hint" class="ghost">Υπόδειξη (<span id="hint-count">3</span>)</button>
+    <button type="button" id="pass" class="ghost">Πάσο</button>
+    <button type="button" id="new-game" class="ghost">Νέο παιχνίδι</button>
+  </nav>
+</header>
+
+<p class="status" id="status" role="status" aria-live="polite">Φόρτωση λεξικού...</p>
+
+<div class="over-banner" id="over-banner" hidden>
+  <p><strong id="over-banner-title"></strong> <span id="over-banner-score"></span></p>
+  <div class="over-actions">
+    <button type="button" class="ghost" id="banner-details">Αποτελέσματα</button>
+    <button type="button" class="primary" id="banner-new-game">Νέο παιχνίδι</button>
+  </div>
+</div>
+
+<main class="game">
+  <section class="play">
+    <div class="board" id="board" aria-label="Ταμπλό"></div>
+    <div class="word-bar">
+      <button type="button" id="cancel" class="ghost" title="Ακύρωση (Esc)">✕</button>
+      <output class="current-word empty" id="current-word">&nbsp;</output>
+      <button type="button" id="undo" class="ghost" title="Αναίρεση (Backspace)">⌫</button>
+      <button type="button" id="submit" class="primary" title="Υποβολή (Enter)">OK</button>
+    </div>
+    <div class="keyboard" id="keyboard" aria-label="Γράμματα"></div>
+  </section>
+
+  <aside class="score">
+    <div class="col" id="player">
+      <h2><span class="name">Εσύ</span> <span class="count">0</span></h2>
+      <ol class="words"></ol>
+    </div>
+    <div class="col" id="pc">
+      <h2><span class="name">Υπολογιστής</span> <span class="count">0</span></h2>
+      <ol class="words"></ol>
+    </div>
+  </aside>
+</main>
+
+<dialog id="over-dialog" class="over-dialog" aria-labelledby="over-title">
+  <p class="over-emoji" id="over-emoji" aria-hidden="true"></p>
+  <h2 id="over-title"></h2>
+  <p class="over-reason" id="over-reason"></p>
+  <div class="over-scores">
+    <div class="over-player" id="over-player">
+      <span class="over-name"></span>
+      <span class="over-points"></span>
+      <span class="over-best"></span>
+    </div>
+    <div class="over-player" id="over-pc">
+      <span class="over-name"></span>
+      <span class="over-points"></span>
+      <span class="over-best"></span>
+    </div>
+  </div>
+  <p class="record" id="over-record"></p>
+  <div class="over-buttons">
+    <button type="button" class="primary" id="over-new-game" autofocus>Νέο παιχνίδι</button>
+    <button type="button" class="ghost" id="over-settings">Αλλαγή ρυθμίσεων</button>
+    <button type="button" class="ghost" id="over-close">Δες το ταμπλό</button>
+  </div>
+</dialog>
+
+<dialog id="start-dialog">
+  <form id="start-form" method="dialog">
+    <h2>Μπάλντα</h2>
+    <p class="result" id="result" hidden></p>
+    <label>Πώς σε λένε;
+      <input type="text" id="player-name" maxlength="24" autocomplete="nickname" placeholder="Το όνομά σου">
+    </label>
+    <label>Δυσκολία
+      <select id="level">
+        <option value="easy">Εύκολο</option>
+        <option value="medium">Μέτριο</option>
+        <option value="hard">Δύσκολο</option>
+      </select>
+    </label>
+    <label>Μέγεθος ταμπλό
+      <select id="board-size">
+        <option value="5">5 × 5</option>
+        <option value="6">6 × 6</option>
+        <option value="7">7 × 7</option>
+      </select>
+    </label>
+    <label>Λέξεις
+      <select id="word-list">
+        <option value="nouns">Μόνο ουσιαστικά (ονομαστική)</option>
+        <option value="all">Όλες οι λέξεις και οι τύποι τους</option>
+      </select>
+    </label>
+    <details class="rules">
+      <summary>Πώς παίζεται</summary>
+      <ol>
+        <li>Διάλεξε ένα κενό κουτί δίπλα σε κάποιο γράμμα.</li>
+        <li>Γράψε ένα γράμμα (με το πληκτρολόγιο ή στην οθόνη).</li>
+        <li>Φτιάξε μια λέξη πατώντας ή σέρνοντας πάνω σε γειτονικά γράμματα (όχι διαγώνια). Πρέπει να περιέχει το νέο γράμμα.</li>
+        <li>Πάτα Enter ή ξαναπάτα το τελευταίο γράμμα.</li>
+      </ol>
+      <p>Με την επιλογή «Μόνο ουσιαστικά» μετράνε μόνο ουσιαστικά στην ονομαστική, όπως γράφονται στο λεξικό (π.χ. «ΛΕΞΗ», όχι «ΛΕΞΕΩΝ»). Κύρια ονόματα δεν επιτρέπονται.</p>
+      <p>Κάθε γράμμα της λέξης δίνει έναν πόντο. Το παιχνίδι τελειώνει όταν γεμίσει το ταμπλό ή όταν πάνε και οι δύο πάσο.</p>
+    </details>
+    <p class="record" id="record"></p>
+    <button type="submit" class="primary">Ξεκίνα</button>
+  </form>
+</dialog>
+</body>
+</html>
