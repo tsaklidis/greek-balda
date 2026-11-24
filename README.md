@@ -20,13 +20,48 @@ Live version: https://tsaklidis.gr/balda/
 
 ## Play locally
 
-Open `index.html` in a browser, or serve the folder with any static server:
+No server and no installation are needed. Download the repository and open `index.html` in
+your browser, for example by double-clicking it:
+
+```bash
+git clone https://github.com/tsaklidis/greek-balda.git
+```
+
+```bash
+open greek-balda/index.html
+```
+
+(`open` is for macOS; on Linux use `xdg-open`, on Windows `start`, or just double-click the file.)
+
+This works because the game never fetches files with code. Both word lists are JavaScript
+files loaded with `<script>` tags, which browsers also allow for pages opened from disk.
+Your name, settings and win/loss record are saved in the browser.
+
+A local server is optional. You only need one if you want to try the game exactly as a
+website serves it:
 
 ```bash
 python3 -m http.server 8123
 ```
 
 Then go to http://localhost:8123.
+
+### Hosting it on a website
+
+Copy these files to any static web host. No PHP or other server-side code is needed:
+
+```
+index.html
+css/style.css
+js/balda.js
+js/nouns.js
+js/dictionary.js
+```
+
+`data/`, `tools/` and `screenshots/` are only for development. The `?v=2` after the script and
+stylesheet links in `index.html` (and after `js/dictionary.js` in `js/balda.js`) makes
+browsers download fresh copies. Increase it whenever you change those files, so visitors
+don't keep using old cached versions.
 
 ## How to play
 
@@ -126,13 +161,14 @@ keeps the files small, and the game decodes them when it loads.
 
 ### Updating the screenshots
 
-With the game served on port 8123 and Google Chrome installed:
+With Google Chrome installed, run from the repository folder:
 
 ```bash
-node tools/capture_screenshots.mjs
+node tools/capture_screenshots.mjs screenshots "file://$PWD/index.html"
 ```
 
 The script plays reproducible games in headless Chrome and saves the images to `screenshots/`.
+Without arguments it uses http://localhost:8123/, if you prefer to run a local server.
 
 ## Credits
 
