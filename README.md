@@ -1,4 +1,4 @@
-# Μπάλντα: Greek Balda
+# Μπαλντά: Greek Balda
 
 A Greek word game against the computer. Take turns adding one letter to the board, spell a
 word through it, and score a point for every letter.
