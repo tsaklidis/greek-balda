@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Greek Balda</title>
 <meta name="description" content="Παιχνίδι λέξεων: φτιάξε λέξεις στο ταμπλό και νίκησε τον υπολογιστή.">
-<link rel="stylesheet" href="css/style.css">
-<script defer src="js/nouns.js"></script>
-<script defer src="js/balda.js"></script>
+<!-- ?v=N defeats browser caches (the server caches .js/.css for a week): bump it, and the
+     one in js/balda.js, whenever these files change. -->
+<link rel="stylesheet" href="css/style.css?v=2">
+<script defer src="js/nouns.js?v=2"></script>
+<script defer src="js/balda.js?v=2"></script>
 </head>
 <body data-phase="loading">
 <header class="top">

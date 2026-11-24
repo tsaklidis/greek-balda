@@ -30,7 +30,7 @@
   // nouns: js/nouns.js, loaded with the page. all: js/dictionary.js, loaded on demand.
   const WORD_LISTS = {
     nouns: { label: 'Ουσιαστικά', global: 'BALDA_NOUNS', src: 'js/nouns.js' },
-    all: { label: 'Όλες οι λέξεις', global: 'BALDA_DICTIONARY', src: 'js/dictionary.js' }
+    all: { label: 'Όλες οι λέξεις', global: 'BALDA_DICTIONARY', src: 'js/dictionary.js?v=2' }
   };
   const STORAGE_KEY = 'greek-balda';
 
